@@ -1,4 +1,7 @@
 <%= form_tag('/posts/create') do %>
-  <textarea name="content" rows="6" cols="50"></textarea>
+  <% @post.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+  <textarea name="content" rows="6" cols="50"><%= @post.content %></textarea>
   <input type="submit" value="投稿" name="" id="">
 <% end %>

@@ -1,0 +1,5 @@
+<%= @user.name %>
+<%= @user.email %>
+<% if @user.id == @current_user.id %>
+  <%= link_to("編集", "/users/#{@user.id}/edit") %>
+<% end %>

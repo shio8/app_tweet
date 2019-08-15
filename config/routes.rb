@@ -1,6 +1,18 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+
+
+  post 'users/create' => 'users#create'
+  get 'users/index' => 'users#index'
+  get 'signup' => 'users#new'
+  get 'login' => 'users#login_form'
+  post 'login' => 'users#login'
+  post 'logout' => 'users#logout'
+  get 'users/:id' => 'users#show'
+  get 'users/:id/edit' => 'users#edit'
+  post 'users/:id/update' => 'users#update'
+
   get 'posts/index' => 'posts#index'
   get 'posts/new' => 'posts#new'
   post 'posts/create' => 'posts#create'

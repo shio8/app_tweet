@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
   def index
     @posts = Post.all.order(created_at: :desc)
@@ -8,13 +10,17 @@ class PostsController < ApplicationController
   end
 
   def new
-
+    @post = Post.new
   end
 
   def create
     @post = Post.new(content: params[:content])
     @post.save
-    redirect_to('/posts/index')
+    if @post.save
+      redirect_to('/posts/index')
+    else
+      render('posts/new')
+    end
   end
 
   def edit
@@ -24,13 +30,17 @@ class PostsController < ApplicationController
   def update
     @post = Post.find_by(id: params[:id])
     @post.content = params[:content]
-    @post.save
-    redirect_to("/posts/index")
+    if @post.save
+      flash[:notice] = '投稿を編集しました'
+      redirect_to('/posts/index')
+    else
+      render('posts/edit')
+    end
   end
 
   def destroy
     @post = Post.find_by(id: params[:id])
     @post.destroy
-    redirect_to("/posts/index")
+    redirect_to('/posts/index')
   end
 end
