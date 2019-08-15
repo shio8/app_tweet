@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+  before_action :authenticated_user
+  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
+
   def index
     @posts = Post.all.order(created_at: :desc)
   end
 
   def show
     @post = Post.find_by(id: params[:id])
+    @user = @post.user
+    @likes_count = Like.where(post_id: @post.id).count
   end
 
   def new
@@ -14,7 +19,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(content: params[:content])
+    @post = Post.new(
+      content: params[:content],
+      user_id: @current_user.id)
     @post.save
     if @post.save
       redirect_to('/posts/index')
@@ -42,5 +49,13 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
     @post.destroy
     redirect_to('/posts/index')
+  end
+
+  def ensure_correct_user
+    @post = Post.find_by(id: params[:id])
+    if @post.user_id != @current_user
+      flash[:notice] = "権限がありません"
+      redirect_to("/posts/#{@post.id}")
+    end
   end
 end

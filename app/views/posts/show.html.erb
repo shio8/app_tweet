@@ -1,4 +1,19 @@
-<%= @post.content %>
-<%= @post.created_at %>
-<%= link_to("edit", "/posts/#{@post.id}/edit") %>
-<%= link_to("削除", "/posts/#{@post.id}/destroy",{method: 'post'}) %>
+<%= link_to(@user.name, "/users/#{@user.id}") %>
+<p><%= @post.content %></p>
+<p><%= @post.created_at %></p>
+<p>
+  <% if Like.find_by(user_id: @current_user.id, post_id: @post.id) %>
+    <%= link_to("/likes/#{@post.id}/destroy",{method: "post"}) do %>
+      <span class="fa fa-heart like-btn-unlike"></span>
+    <% end %>
+  <% else %>
+    <%= link_to("/likes/#{@post.id}/create",{method: "post"}) do %>
+      <span class="fa fa-heart like-btn"></span>
+    <% end %>
+  <% end %>
+  <%= @likes_count %> 
+</p>
+<% if @post.user.id == @current_user.id %>
+  <%= link_to("edit", "/posts/#{@post.id}/edit") %>
+  <%= link_to("削除", "/posts/#{@post.id}/destroy",{method: 'post'}) %>
+<% end %>

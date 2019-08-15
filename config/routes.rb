@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
+  post 'likes/:post_id/create' => 'likes#create'
+  post 'likes/:post_id/destroy' => 'likes#destroy'
 
   post 'users/create' => 'users#create'
   get 'users/index' => 'users#index'
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
   get 'users/:id' => 'users#show'
   get 'users/:id/edit' => 'users#edit'
   post 'users/:id/update' => 'users#update'
+  get 'users/:id/likes' => 'users#likes'
 
   get 'posts/index' => 'posts#index'
   get 'posts/new' => 'posts#new'
