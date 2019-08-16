@@ -1,7 +1,17 @@
-<%= form_tag('/posts/create') do %>
-  <% @post.errors.full_messages.each do |message| %>
-    <%= message %>
-  <% end %>
-  <textarea name="content" rows="6" cols="50"><%= @post.content %></textarea>
-  <input type="submit" value="投稿" name="" id="">
-<% end %>
+<div class="row mt-5">
+  <div class="col-12 item-bcolor p-4">
+    <%= form_tag('/posts/create') do %>
+      <% @post.errors.full_messages.each do |message| %>
+        <%= message %>
+      <% end %>
+
+      <div class="form-group pt-3">
+        <label class="pb-2" for="postFormControlTextarea">投稿の編集</label>
+        <textarea name="content" class="py-4 form-control" rows="5"><%= @post.content %></textarea>
+      </div>
+      <div class="pb-2">
+        <button type="submit" class="btn btn-outline-primary">投稿</button>
+      </div>
+    <% end %>
+  </div>
+</div>

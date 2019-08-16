@@ -1,19 +1,44 @@
-<%= link_to(@user.name, "/users/#{@user.id}") %>
-<p><%= @post.content %></p>
-<p><%= @post.created_at %></p>
-<p>
-  <% if Like.find_by(user_id: @current_user.id, post_id: @post.id) %>
-    <%= link_to("/likes/#{@post.id}/destroy",{method: "post"}) do %>
-      <span class="fa fa-heart like-btn-unlike"></span>
-    <% end %>
-  <% else %>
-    <%= link_to("/likes/#{@post.id}/create",{method: "post"}) do %>
-      <span class="fa fa-heart like-btn"></span>
-    <% end %>
-  <% end %>
-  <%= @likes_count %> 
-</p>
-<% if @post.user.id == @current_user.id %>
-  <%= link_to("edit", "/posts/#{@post.id}/edit") %>
-  <%= link_to("削除", "/posts/#{@post.id}/destroy",{method: 'post'}) %>
-<% end %>
+<div class="posts-index-item row mt-5">
+  <div class="col-12 row border-bottom pb-4">
+    <div class="post-left col-sm-4 col-md-2">
+      <img src="<%= "/user_images/#{@post.user.image_name}" %>" alt="" class="rounded-circle user-img">
+    </div>
+    <div class="post-right col">
+      <div class="post-user-name pt-2">
+        <%= link_to(@post.user.name, "/users/#{@post.user.id}") %>
+      </div>
+      <p class="pt-2 post-show-font"><%= @post.content %></p>
+    </div>
+  </div>
+  <div class="col-12 pt-3">
+    <div class="float-left">
+      <p class="text-muted"><%= @post.created_at %></p>
+      <p>
+        <% if Like.find_by(user_id: @current_user.id, post_id: @post.id) %>
+          <%= link_to("/likes/#{@post.id}/destroy",{method: "post"}) do %>
+            <span class="fa fa-heart like-btn-unlike"></span>
+          <% end %>
+        <% else %>
+          <%= link_to("/likes/#{@post.id}/create",{method: "post"}) do %>
+            <span class="fa fa-heart like-btn"></span>
+          <% end %>
+        <% end %>
+        <%= @likes_count %>
+      </p>
+    </div>
+    <div class="float-right pt-1">
+      <% if @post.user.id == @current_user.id %>
+        <div class="float-left mr-2">
+          <%= link_to("/posts/#{@post.id}/edit") do %>
+            <button type="button" class="btn btn-outline-info">編集</button>
+          <% end %>
+        </div>
+        <div class="float-left">
+          <%= link_to("/posts/#{@post.id}/destroy") do %>
+            <button type="button" class="btn btn-outline-danger">削除</button>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

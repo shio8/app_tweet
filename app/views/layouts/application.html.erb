@@ -6,11 +6,10 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
       <div class="container">
         <% if @current_user %>
           <%= link_to("AppTweet", "/posts/index", class: "navbar-brand") %>
@@ -55,7 +54,9 @@
     </nav>
     <div class="container">
       <% if flash[:notice] %>
-        <%= flash[:notice] %>
+        <div class="flash mt-2 rounded-pill">
+          <%= flash[:notice] %>
+        </div>
       <% end %>
       <%= yield %>
     </div>

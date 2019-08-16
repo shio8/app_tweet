@@ -15,3 +15,9 @@
  */
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
+
+.user-img {
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 2px 6px #c1ced7;
+}
