@@ -18,33 +18,35 @@
   <div class="col-10">
     <h4><%= @user.name %></h4>
     <h6>Email：<%= @user.email %></h6>
-    <p>
+    <p class="py-2">
       <% if @user.id == @current_user.id %>
-        <%= link_to("編集", "/users/#{@user.id}/edit") %>
+        <%= link_to("/users/#{@user.id}/edit") do %>
+        <button type="button" class="btn btn-outline-info">編集</button>
       <% end %>
-    </p>
-  </div>
-  <div class="col-5">
-    <ul class="nav nav-tabs">
-      <li class="nav-item"><%= link_to("投稿", "/users/#{@user.id}",class: "nav-link") %></li>
-      <li class="nav-item"><%= link_to("いいね", "/users/#{@user.id}/likes",class: "nav-link active") %></li>
-    </ul>
-  </div>
-  <div class="col-5"></div>
-  <div class="col-10">
-    <% @likes.each do |like| %>
-      <% post = Post.find_by(id: like.post_id) %>
-      <div class="posts-index-item row align-items-center m-0">
-        <div class="post-left col-sm-3 col-md-2 float-left">
-          <img src="<%= "/user_images/#{post.user.image_name}" %>" alt="" class="rounded-circle user-img">
-        </div>
-        <div class="post-right col float-left">
-          <div class="post-user-name pb-1">
-            <%= link_to(post.user.name, "/users/#{post.user.id}") %>
-          </div>
-          <p class="pt-0"><%= link_to(post.content, "/posts/#{post.id}") %></p>
-        </div>
-      </div>
     <% end %>
-  </div>
+  </p>
+</div>
+<div class="col-5">
+  <ul class="nav nav-tabs">
+    <li class="nav-item"><%= link_to("投稿", "/users/#{@user.id}",class: "nav-link") %></li>
+    <li class="nav-item"><%= link_to("いいね", "/users/#{@user.id}/likes",class: "nav-link active") %></li>
+  </ul>
+</div>
+<div class="col-5"></div>
+<div class="col-10">
+  <% @likes.each do |like| %>
+    <% post = Post.find_by(id: like.post_id) %>
+    <div class="posts-index-item row align-items-center m-0">
+      <div class="post-left col-sm-3 col-md-2 float-left">
+        <img src="<%= "/user_images/#{post.user.image_name}" %>" alt="" class="rounded-circle user-img">
+      </div>
+      <div class="post-right col float-left">
+        <div class="post-user-name pb-1">
+          <%= link_to(post.user.name, "/users/#{post.user.id}") %>
+        </div>
+        <p class="pt-0"><%= link_to(post.content, "/posts/#{post.id}") %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
 </div>
