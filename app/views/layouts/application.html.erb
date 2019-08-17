@@ -21,7 +21,7 @@
         <% if @current_user %>
           <li class="nav-item nav-link">
             <%= link_to("/users/#{@current_user.id}") do %>
-              <img src="<%= "/user_images/#{@user.image_name}" %>" alt="" class="rounded-circle user-img header-icon">
+              <img src="<%= "/user_images/#{@current_user.image_name}" %>" alt="" class="rounded-circle user-img header-icon">
             <% end %>
             <%= link_to(@current_user.name, "/users/#{@current_user.id}", class: "pl-2") %>
           </li>
