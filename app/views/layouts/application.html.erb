@@ -15,35 +15,32 @@
           <%= link_to("/posts/index", class: "navbar-brand") do %>
             <span class="navbar-brand">AppTweet</span>
           <% end %>
-          <li class="nav-item">
-            <%= link_to(@current_user.name, "/users/#{@current_user.id}") %>
-          </li>
         <% else %>
           <%= link_to("AppTweet", "/", class: "navbar-brand") %>
+        <% end %>
+        <% if @current_user %>
+          <li class="nav-item nav-link">
+            <%= link_to("/users/#{@current_user.id}") do %>
+              <img src="<%= "/user_images/#{@user.image_name}" %>" alt="" class="rounded-circle user-img header-icon">
+            <% end %>
+            <%= link_to(@current_user.name, "/users/#{@current_user.id}", class: "pl-2") %>
+          </li>
         <% end %>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <% if session[:user_id] %>
-                  <%= link_to("投稿一覧", "/posts/index", class: "dropdown-item") %>
-                  <%= link_to("新規投稿", "/posts/new", class: "dropdown-item") %>
-                  <%= link_to("ユーザー一覧", "/users/index", class: "dropdown-item") %>
-                  <%= link_to("ログアウト", "/logout", method: :post, class: "dropdown-item") %>
-                <% else %>
-                  <%= link_to("ユーザー登録", "/signup", class: "dropdown-item") %>
-                  <%= link_to("ログイン", "/login", class: "dropdown-item") %>
-                <% end %>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
+          <ul class="navbar-nav mr-auto"></ul>
+          <ul class="navbar-nav">
+            <% if session[:user_id] %>
+              <%= link_to("投稿一覧", "/posts/index", class: "nav-item nav-link") %>
+              <%= link_to("新規投稿", "/posts/new", class: "nav-item nav-link") %>
+              <%= link_to("ユーザー一覧", "/users/index", class: "nav-item nav-link") %>
+              <%= link_to("ログアウト", "/logout", method: :post, class: "nav-item nav-link") %>
+            <% else %>
+              <%= link_to("ユーザー登録", "/signup", class: "nav-item nav-link") %>
+              <%= link_to("ログイン", "/login", class: "nav-item nav-link") %>
+            <% end %>
           </ul>
         </div>
       </div>
